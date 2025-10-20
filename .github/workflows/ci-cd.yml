@@ -1,19 +1,15 @@
 name: CI/CD Pipeline
 
-# Trigger auf allen Branches
+# Workflow wird bei jedem Push ausgelöst
 on:
   push:
     branches:
-      - '**'
+      - '**'   # alle Branches
 
 jobs:
-  # ----------------------------
-  # Test-Job
-  # ----------------------------
   test:
-    name: Test (alle Branches außer main)
+    name: Test Build
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'   # Nur Nicht-Default-Branches
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -26,17 +22,13 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Build site
+      - name: Build project
         run: yarn build
 
-  # ----------------------------
-  # Deploy-Job
-  # ----------------------------
   deploy:
-    name: Deploy to GitHub Pages (main branch)
+    name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
-    needs: test
-    if: github.ref == 'refs/heads/main'  # Nur Default-Branch
+    needs: test  # Deploy wartet, bis Test abgeschlossen ist
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -49,16 +41,16 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Build site
+      - name: Build project
         run: yarn build
 
-      - name: Move build to public
-        run: mv ./build ./public
+      - name: Prepare public folder
+        run: mv build public
 
-      - name: Deploy to GitHub Pages via SSH
+      - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages       # Branch für GitHub Pages
-          folder: public         # Ordner, der deployed wird
+          branch: gh-pages        # Branch für GitHub Pages
+          folder: public          # Ordner, der deployed wird
           clean: true
           ssh-key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
