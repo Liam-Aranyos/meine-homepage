@@ -9,23 +9,33 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
+      # 1. Repository auschecken
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          persist-credentials: true   # Sehr wichtig für GITHUB_TOKEN
+          fetch-depth: 0
 
+      # 2. Node.js einrichten
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '22'
 
+      # 3. Abhängigkeiten installieren
       - name: Install dependencies
         run: npm ci
 
+      # 4. Docusaurus Seite bauen
       - name: Build Docusaurus site
         run: npm run build
 
+      # 5. Deploy auf GitHub Pages
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: build
-          token: ${{ secrets.GITHUB_TOKEN }}
+          clean: true
+          token: ${{ secrets.GITHUB_TOKEN }}  # nutzt automatisch den GitHub Token
+
