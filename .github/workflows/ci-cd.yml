@@ -17,7 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '22'
+          node-version: '22'  # oder '20', Hauptsache >=20
 
       - name: Install dependencies
         run: yarn install
@@ -36,21 +36,4 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
-
-      - name: Install dependencies
-        run: yarn install
-
-      - name: Build project
-        run: yarn build
-
-      - name: Prepare public folder
-        run: mv build public
-
-      - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages        # Branch für GitHub Pages
-          folder: public          # Ordner, der deployed wird
-          clean: true
-          ssh-key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          node-
