@@ -1,12 +1,10 @@
 ---
-slug: first-blog-post
-title: First Blog Post
-authors: [slorber, yangshun]
-tags: [hola, docusaurus]
+---
+title: My First Blog Post
+author: Liam
+author_url: https://github.com/LiamAranyos
+author_image_url: https://avatars1.githubusercontent.com/u/17883920?s=460&v=4
+tags: [Blog, Docusaurus]
 ---
 
-Lorem ipsum dolor sit amet...
-
-<!-- truncate -->
-
-...consectetur adipiscing elit. Pellentesque elementum dignissim ultricies. Fusce rhoncus ipsum tempor eros aliquam consequat. Lorem ipsum dolor sit amet
+Welcome to my blog! This is where I share my projects, tutorials, and experiments. Stay tuned for updates!

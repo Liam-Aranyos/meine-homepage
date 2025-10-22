@@ -1,43 +1,37 @@
-import clsx from 'clsx';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import React from 'react';
 import Layout from '@theme/Layout';
-import HomepageFeatures from '@site/src/components/HomepageFeatures';
-
-import Heading from '@theme/Heading';
 import styles from './index.module.css';
 
-function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
-          {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 export default function Home() {
-  const {siteConfig} = useDocusaurusContext();
+  const features = [
+    { title: 'Projects', description: 'All my cool coding projects.' },
+    { title: 'Blog', description: 'Updates, tutorials, and experiments.' },
+    { title: 'Contact', description: 'Find me on GitHub, LinkedIn, or Discord.' },
+  ];
+
   return (
-    <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
-      <HomepageHeader />
-      <main>
-        <HomepageFeatures />
+    <Layout title="Welcome!" description="Liam's GitHub Homepage">
+      <header className={styles.heroBanner}>
+        <div className={styles.container}>
+          <img
+            src="https://avatars1.githubusercontent.com/u/17883920?s=460&v=4"
+            alt="Liam"
+            className={styles.profileImage}
+          />
+          <h1>Hello, I’m Liam!</h1>
+          <p>Welcome to my personal space where I share projects, blogs, and experiments.</p>
+        </div>
+      </header>
+
+      <main className={styles.features}>
+        {features.map((f, idx) => (
+          <div key={idx} className={styles.featureCard}>
+            <h3>{f.title}</h3>
+            <p>{f.description}</p>
+          </div>
+        ))}
       </main>
     </Layout>
   );
 }
+
